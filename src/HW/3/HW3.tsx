@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler, useState} from 'react';
+import React, {ChangeEventHandler, KeyboardEventHandler, useState} from 'react';
 
 export const HW3 = () => {
   // 1️⃣ Раскомментируйте JSX(HW3.tsx) и вы увидите,
@@ -27,15 +27,21 @@ export const HW3 = () => {
     setCurrentText('')
   };
 
+  const onKeyUpHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") {handleSave()}
+      // (e.key === "Enter") ? {handleSave()} : {() => {}}
+      console.log(e.key === 'Enter')
+  }
+
   return (
     <div id={'hw03'}>
       {currentText ? (
-        <h1 id={'hw03-text'}>ЗДЕСЬ ХОТЕЛОСЬ БЫ УВИДЕТЬ ВВОДИМЫЙ ТЕКСТ</h1>
+        <h1 id={'hw03-text'}>{currentText}</h1>
       ) : (
         <h1 id={'hw03-default-text'}>Здесь появится новое дело</h1> // ничего не меняем, здесь все норм
       )}
 
-      <input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} />
+      <input id={'hw03-input'} type="text" value={currentText} onChange={handleChange} onKeyUp={onKeyUpHandler} />
 
       <button id={'hw03-button'} onClick={handleSave}> // НЕ ХВАТАТЕТ ФУНКЦИИ
         Сохранить
